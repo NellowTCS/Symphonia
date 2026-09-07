@@ -5,8 +5,17 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use std::cmp::min;
+use alloc::boxed::Box;
+use alloc::vec::Vec;
+use core::cmp::min;
+
+#[cfg(not(feature = "std"))]
+use hashbrown::HashSet;
+#[cfg(feature = "std")]
 use std::collections::HashSet;
+
+#[cfg(not(feature = "std"))]
+use num_traits::float::Float;
 
 use symphonia_core::errors::{Error, Result, decode_error};
 use symphonia_core::io::{BitReaderRtl, MediaErrorKind, ReadBitsRtl};
@@ -105,7 +114,14 @@ macro_rules! try_or_ret {
             // An end-of-bitstream error is classified under ErrorKind::Other. This condition
             // should not be treated as an error, rather, it should return from the function
             // immediately without error.
+            #[cfg(feature = "std")]
             Err(Error::IoError(ref e)) if e.kind() == std::io::ErrorKind::Other => return Ok(()),
+            // Under no_std the IO error wraps a MediaError whose end-of-bitstream kind encodes
+            // the same classification.
+            #[cfg(not(feature = "std"))]
+            Err(Error::IoError(ref e)) if e.kind() == MediaErrorKind::EndOfBitstream => {
+                return Ok(())
+            }
             Err(e) => return Err(e),
         }
     };
@@ -285,7 +301,7 @@ impl Floor for Floor0 {
             &self.setup.floor0_map_long
         };
 
-        let omega_step = std::f32::consts::PI / f32::from(self.setup.floor0_bark_map_size);
+        let omega_step = core::f32::consts::PI / f32::from(self.setup.floor0_bark_map_size);
 
         let mut i = 0;
 
