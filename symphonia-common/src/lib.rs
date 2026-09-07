@@ -11,6 +11,10 @@
 #![allow(clippy::excessive_precision)]
 #![allow(clippy::identity_op)]
 #![allow(clippy::manual_range_contains)]
+// Build without the standard library when the `std` feature is disabled.
+#![cfg_attr(not(feature = "std"), no_std)]
+
+extern crate alloc;
 
 pub mod apple;
 pub mod mpeg;
