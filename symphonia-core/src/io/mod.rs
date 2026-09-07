@@ -138,7 +138,7 @@ pub trait MediaSource: io::Read + io::Seek + Send + Sync {
 /// Despite every source implementing the seek method, seeking is an optional capability that can be
 /// queried at runtime with [`MediaSource::is_seekable`].
 #[cfg(not(feature = "std"))]
-pub trait MediaSource {
+pub trait MediaSource: Send + Sync {
     /// Returns if the source is seekable. This may be an expensive operation.
     fn is_seekable(&self) -> bool;
 
@@ -308,7 +308,7 @@ impl<I> EmbeddedIoSource<I> {
 }
 
 #[cfg(not(feature = "std"))]
-impl<I: embedded_io::Read + embedded_io::Seek> MediaSource for EmbeddedIoSource<I> {
+impl<I: embedded_io::Read + embedded_io::Seek + Send + Sync> MediaSource for EmbeddedIoSource<I> {
     /// Always returns true since `I` implements `embedded_io::Seek`.
     fn is_seekable(&self) -> bool {
         true
