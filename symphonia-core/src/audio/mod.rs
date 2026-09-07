@@ -23,6 +23,8 @@
 //! each enumerator corresponds to one of the aforementioned standard sample formats. Functions on
 //! the generic wrappers match closely with that of the typed interface and are dispatch to the
 //! active enumerator.
+use alloc::vec::Vec;
+
 use core::ops::Range;
 
 mod buf;

@@ -9,6 +9,8 @@
 //!
 //! The MDCT in this module is implemented in-terms of a forward FFT.
 
+use alloc::{boxed::Box, vec::Vec};
+
 use crate::dsp::complex::Complex;
 use crate::dsp::fft::*;
 

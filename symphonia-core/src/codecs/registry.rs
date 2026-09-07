@@ -7,9 +7,11 @@
 
 //! Registry for codecs to support lookup and instantiation of decoders dynamically at runtime.
 
-use std::collections::HashMap;
+use alloc::boxed::Box;
+
 use core::default::Default;
 use core::hash::Hash;
+use std::collections::HashMap;
 
 use crate::codecs::CodecInfo;
 use crate::codecs::audio::{AudioCodecId, AudioCodecParameters, AudioDecoder, AudioDecoderOptions};

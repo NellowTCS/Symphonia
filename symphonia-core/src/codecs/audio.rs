@@ -7,6 +7,8 @@
 
 //! Audio decoder specific support.
 
+use alloc::boxed::Box;
+
 use core::fmt;
 
 use crate::audio::sample::SampleFormat;

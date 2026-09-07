@@ -19,6 +19,7 @@ pub mod vlc {
     //! The `vlc` module provides support for decoding variable-length codes (VLC).
 
     use alloc::collections::{BTreeMap, VecDeque};
+    use alloc::vec::Vec;
     use core::num::NonZero;
     use std::io;
 

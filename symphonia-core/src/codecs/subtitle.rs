@@ -7,6 +7,8 @@
 
 //! Subtitle decoder specific support.
 
+use alloc::boxed::Box;
+
 use core::fmt;
 
 #[cfg(feature = "exp-subtitle-codecs")]

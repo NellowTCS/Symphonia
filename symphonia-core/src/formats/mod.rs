@@ -8,6 +8,8 @@
 //! The `format` module provides the traits and support structures necessary to implement media
 //! demuxers.
 
+use alloc::{boxed::Box, string::String};
+
 use core::fmt;
 
 use crate::codecs::{CodecParameters, audio, subtitle, video};

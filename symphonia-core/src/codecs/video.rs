@@ -7,6 +7,8 @@
 
 //! Video decoder specific support.
 
+use alloc::{boxed::Box, vec::Vec};
+
 use core::fmt;
 
 #[cfg(feature = "exp-video-codecs")]

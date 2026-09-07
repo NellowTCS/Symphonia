@@ -7,6 +7,8 @@
 
 //! The `packet` module defines the packet structure.
 
+use alloc::boxed::Box;
+
 use crate::io::BufReader;
 use crate::units::{Duration, Timestamp};
 
@@ -222,6 +224,8 @@ impl<'a> From<&'a Packet> for PacketRef<'a> {
 }
 
 mod builder {
+    use alloc::boxed::Box;
+
     use crate::packet::{Packet, PacketRef};
     use crate::units::{Duration, Timestamp};
 

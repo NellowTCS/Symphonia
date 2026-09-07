@@ -12,6 +12,7 @@
 #![allow(clippy::identity_op)]
 #![allow(clippy::manual_range_contains)]
 
+#[macro_use]
 extern crate alloc;
 
 pub mod audio;

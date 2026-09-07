@@ -8,6 +8,8 @@
 //! The `probe` module provides methods and traits to support auto-detection of media formats from
 //! arbitrary media streams.
 
+use alloc::{boxed::Box, string::String, vec::Vec};
+
 use std::io::{Seek, SeekFrom};
 
 use crate::common::Tier;
@@ -19,6 +21,8 @@ use crate::meta::{MetadataInfo, MetadataOptions, MetadataReader, MetadataSideDat
 use log::{debug, error, trace, warn};
 
 mod bloom {
+
+    use alloc::boxed::Box;
 
     fn fnv1a32(value: &[u8; 2]) -> u32 {
         const INIT: u32 = 0x811c_9dc5;

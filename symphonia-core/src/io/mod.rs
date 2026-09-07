@@ -19,8 +19,10 @@
 //! either the [`ReadBitsLtr`] or [`ReadBitsRtl`] traits depending on the order in which they
 //! consume bits.
 
-use std::io;
+use alloc::{boxed::Box, vec::Vec};
+
 use core::mem;
+use std::io;
 
 mod bit;
 mod buf_reader;

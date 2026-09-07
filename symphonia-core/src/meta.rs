@@ -50,8 +50,11 @@
 //! stored using an [`Arc`].
 
 use alloc::borrow::Cow;
+use alloc::boxed::Box;
 use alloc::collections::VecDeque;
+use alloc::string::String;
 use alloc::sync::Arc;
+use alloc::vec::Vec;
 use core::convert::From;
 use core::fmt;
 use core::num::NonZeroU8;

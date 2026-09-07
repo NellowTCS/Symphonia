@@ -9,8 +9,8 @@
 
 use core::error;
 use core::fmt;
-use std::io;
 use core::result;
+use std::io;
 
 /// `SeekErrorKind` is a list of generic reasons why a seek may fail.
 #[non_exhaustive]
