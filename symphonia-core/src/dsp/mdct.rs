@@ -11,6 +11,9 @@
 
 use alloc::{boxed::Box, vec::Vec};
 
+#[cfg(not(feature = "std"))]
+use num_traits::float::Float;
+
 use crate::dsp::complex::Complex;
 use crate::dsp::fft::*;
 

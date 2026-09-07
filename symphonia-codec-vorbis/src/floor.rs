@@ -9,7 +9,7 @@ use std::cmp::min;
 use std::collections::HashSet;
 
 use symphonia_core::errors::{Error, Result, decode_error};
-use symphonia_core::io::{BitReaderRtl, ReadBitsRtl};
+use symphonia_core::io::{BitReaderRtl, MediaErrorKind, ReadBitsRtl};
 
 use super::codebook::VorbisCodebook;
 use super::common::*;
@@ -89,10 +89,10 @@ macro_rules! io_try_or_ret {
     ($expr:expr) => {
         match $expr {
             Ok(val) => val,
-            // An end-of-bitstream error is classified under ErrorKind::Other. This condition
-            // should not be treated as an error, rather, it should return from the function
-            // immediately without error.
-            Err(ref e) if e.kind() == std::io::ErrorKind::Other => return Ok(()),
+            // An end-of-bitstream error is a message-based error. This condition should not be
+            // treated as an error, rather, it should return from the function immediately without
+            // error.
+            Err(ref e) if e.kind() == MediaErrorKind::EndOfBitstream => return Ok(()),
             Err(e) => return Err(e.into()),
         }
     };

@@ -5,7 +5,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use alloc::{boxed::Box, vec::Vec};
+use alloc::{boxed::Box, string::ToString, vec::Vec};
 
 use core::fmt::Debug;
 

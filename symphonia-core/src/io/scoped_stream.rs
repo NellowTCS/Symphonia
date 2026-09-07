@@ -8,13 +8,12 @@
 use alloc::boxed::Box;
 
 use core::cmp;
-use std::io;
 
-use super::{FiniteStream, ReadBytes, SeekBuffered};
+use super::{FiniteStream, MediaError, MediaResult, ReadBytes, SeekBuffered};
 
 #[inline(always)]
-fn out_of_bounds_error<T>() -> io::Result<T> {
-    Err(io::Error::new(io::ErrorKind::UnexpectedEof, "out of bounds"))
+fn out_of_bounds_error<T>() -> MediaResult<T> {
+    Err(MediaError::eof_message("out of bounds"))
 }
 
 /// A `ScopedStream` restricts the number of bytes that may be read to an upper limit.
@@ -43,7 +42,7 @@ impl<B: ReadBytes> ScopedStream<B> {
     }
 
     /// Ignores the remainder of the `ScopedStream`.
-    pub fn ignore(&mut self) -> io::Result<()> {
+    pub fn ignore(&mut self) -> MediaResult<()> {
         self.inner.ignore_bytes(self.len - self.read)
     }
 
@@ -72,7 +71,7 @@ impl<B: ReadBytes> FiniteStream for ScopedStream<B> {
 
 impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
     #[inline(always)]
-    fn read_byte(&mut self) -> io::Result<u8> {
+    fn read_byte(&mut self) -> MediaResult<u8> {
         if self.len - self.read < 1 {
             return out_of_bounds_error();
         }
@@ -82,7 +81,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
     }
 
     #[inline(always)]
-    fn read_double_bytes(&mut self) -> io::Result<[u8; 2]> {
+    fn read_double_bytes(&mut self) -> MediaResult<[u8; 2]> {
         if self.len - self.read < 2 {
             return out_of_bounds_error();
         }
@@ -92,7 +91,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
     }
 
     #[inline(always)]
-    fn read_triple_bytes(&mut self) -> io::Result<[u8; 3]> {
+    fn read_triple_bytes(&mut self) -> MediaResult<[u8; 3]> {
         if self.len - self.read < 3 {
             return out_of_bounds_error();
         }
@@ -102,7 +101,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
     }
 
     #[inline(always)]
-    fn read_quad_bytes(&mut self) -> io::Result<[u8; 4]> {
+    fn read_quad_bytes(&mut self) -> MediaResult<[u8; 4]> {
         if self.len - self.read < 4 {
             return out_of_bounds_error();
         }
@@ -111,7 +110,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
         self.inner.read_quad_bytes()
     }
 
-    fn read_buf(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+    fn read_buf(&mut self, buf: &mut [u8]) -> MediaResult<usize> {
         // Limit read_buf() to the remainder of the scoped bytes if buf has a greater length.
         let scoped_len = cmp::min(self.len - self.read, buf.len() as u64) as usize;
         let result = self.inner.read_buf(&mut buf[0..scoped_len])?;
@@ -119,7 +118,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
         Ok(result)
     }
 
-    fn read_buf_exact(&mut self, buf: &mut [u8]) -> io::Result<()> {
+    fn read_buf_exact(&mut self, buf: &mut [u8]) -> MediaResult<()> {
         if self.len - self.read < buf.len() as u64 {
             return out_of_bounds_error();
         }
@@ -129,7 +128,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
         Ok(())
     }
 
-    fn read_boxed_slice(&mut self, len: usize) -> io::Result<Box<[u8]>> {
+    fn read_boxed_slice(&mut self, len: usize) -> MediaResult<Box<[u8]>> {
         // Limit read_boxed_slice() to the remainder of the scoped bytes if len is greater.
         let scoped_len = cmp::min(self.len - self.read, len as u64) as usize;
         let data = self.inner.read_boxed_slice(scoped_len)?;
@@ -137,7 +136,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
         Ok(data)
     }
 
-    fn read_boxed_slice_exact(&mut self, len: usize) -> io::Result<Box<[u8]>> {
+    fn read_boxed_slice_exact(&mut self, len: usize) -> MediaResult<Box<[u8]>> {
         if self.len - self.read < len as u64 {
             return out_of_bounds_error();
         }
@@ -153,7 +152,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
         pattern: &[u8],
         align: usize,
         buf: &'a mut [u8],
-    ) -> io::Result<&'a mut [u8]> {
+    ) -> MediaResult<&'a mut [u8]> {
         if self.len - self.read < buf.len() as u64 {
             return out_of_bounds_error();
         }
@@ -164,7 +163,7 @@ impl<B: ReadBytes> ReadBytes for ScopedStream<B> {
     }
 
     #[inline(always)]
-    fn ignore_bytes(&mut self, count: u64) -> io::Result<()> {
+    fn ignore_bytes(&mut self, count: u64) -> MediaResult<()> {
         if self.len - self.read < count {
             return out_of_bounds_error();
         }

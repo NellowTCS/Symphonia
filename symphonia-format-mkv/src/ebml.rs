@@ -7,7 +7,7 @@
 
 use std::io::SeekFrom;
 
-use symphonia_core::io::{MediaSource, ReadBytes, SeekBuffered};
+use symphonia_core::io::{MediaError, MediaSource, ReadBytes, SeekBuffered};
 use symphonia_core::util::bits::sign_extend_leq64_to_i64;
 
 /// `EbmlError` provides an enumeration of all possible EBML iterator errors.
@@ -55,6 +55,12 @@ pub enum EbmlError {
 impl From<std::io::Error> for EbmlError {
     fn from(err: std::io::Error) -> EbmlError {
         EbmlError::IoError(err)
+    }
+}
+
+impl From<MediaError> for EbmlError {
+    fn from(err: MediaError) -> EbmlError {
+        EbmlError::IoError(err.into())
     }
 }
 

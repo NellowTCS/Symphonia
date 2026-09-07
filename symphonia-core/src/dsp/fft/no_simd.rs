@@ -12,6 +12,9 @@ use core::f32;
 
 use once_cell::race::OnceBox;
 
+#[cfg(not(feature = "std"))]
+use num_traits::float::Float;
+
 use crate::dsp::complex::Complex;
 use crate::dsp::fft::MAX_SIZE;
 

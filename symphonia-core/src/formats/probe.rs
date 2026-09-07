@@ -8,8 +8,11 @@
 //! The `probe` module provides methods and traits to support auto-detection of media formats from
 //! arbitrary media streams.
 
-use alloc::{boxed::Box, string::String, vec::Vec};
+use alloc::{borrow::ToOwned, boxed::Box, string::String, vec::Vec};
 
+#[cfg(not(feature = "std"))]
+use crate::io::SeekFrom;
+#[cfg(feature = "std")]
 use std::io::{Seek, SeekFrom};
 
 use crate::common::Tier;
@@ -724,6 +727,18 @@ fn find_reader(
     Ok(None)
 }
 
+/// Returns `true` if the error kind indicates an unexpected end-of-file.
+#[cfg(feature = "std")]
+fn is_unexpected_eof(err: &std::io::Error) -> bool {
+    err.kind() == std::io::ErrorKind::UnexpectedEof
+}
+
+/// Returns `true` if the error kind indicates an unexpected end-of-file.
+#[cfg(not(feature = "std"))]
+fn is_unexpected_eof(err: &crate::io::MediaError) -> bool {
+    err.kind() == crate::io::MediaErrorKind::Eof
+}
+
 fn score(
     candidate: &GenericProbeMatch,
     mss: &mut MediaSourceStream,
@@ -734,7 +749,7 @@ fn score(
 
     // Perform the scoring operation.
     let result = match (candidate.score)(ScopedStream::new(mss, u64::from(max_depth))) {
-        Err(Error::IoError(err)) if err.kind() != std::io::ErrorKind::UnexpectedEof => {
+        Err(Error::IoError(err)) if !is_unexpected_eof(&err) => {
             // IO errors that are not an unexpected end-of-file (or out-of-bounds) error, abort the
             // entire probe operation.
             Err(Error::IoError(err))

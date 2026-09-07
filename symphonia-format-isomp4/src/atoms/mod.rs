@@ -475,6 +475,12 @@ impl From<std::io::Error> for AtomError {
     }
 }
 
+impl From<symphonia_core::io::MediaError> for AtomError {
+    fn from(err: symphonia_core::io::MediaError) -> AtomError {
+        AtomError::Other(symphonia_core::errors::Error::from(err))
+    }
+}
+
 impl From<symphonia_core::errors::Error> for AtomError {
     fn from(value: symphonia_core::errors::Error) -> Self {
         AtomError::Other(value)

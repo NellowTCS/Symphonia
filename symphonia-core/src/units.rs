@@ -11,6 +11,9 @@ use core::fmt;
 
 use core::num::NonZero;
 
+#[cfg(not(feature = "std"))]
+use num_traits::float::Float;
+
 /// A `Timestamp` is an instant in time expressed in stream timebase units.
 ///
 /// One timestamp "tick" is equal to the stream's `TimeBase` in seconds.

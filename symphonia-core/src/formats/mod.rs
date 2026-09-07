@@ -8,7 +8,7 @@
 //! The `format` module provides the traits and support structures necessary to implement media
 //! demuxers.
 
-use alloc::{boxed::Box, string::String};
+use alloc::{boxed::Box, string::String, string::ToString};
 
 use core::fmt;
 
