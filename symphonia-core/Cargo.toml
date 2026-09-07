@@ -39,6 +39,7 @@ exp-video-codecs = []
 bitflags = "2.4.2"
 bytemuck = "1.7"
 embedded-io = { version = "0.7", default-features = false }
+hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
 log = { workspace = true }
 num-complex = { version = "0.4", default-features = false }
 num-traits = { version = "0.2.19", default-features = false, features = ["libm"] }
