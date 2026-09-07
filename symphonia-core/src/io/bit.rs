@@ -11,8 +11,8 @@ use crate::io::{MediaError, MediaResult, ReadBytes};
 use crate::util::bits::*;
 
 fn end_of_bitstream_error<T>() -> MediaResult<T> {
-        Err(MediaError::end_of_bitstream())
-    }
+    Err(MediaError::end_of_bitstream())
+}
 
 pub mod vlc {
     //! The `vlc` module provides support for decoding variable-length codes (VLC).
