@@ -35,9 +35,9 @@ exp-video-codecs = []
 [dependencies]
 bitflags = "2.4.2"
 bytemuck = "1.7"
-lazy_static = { workspace = true }
 log = { workspace = true }
-num-complex = "0.4"
+num-complex = { version = "0.4", default-features = false }
+once_cell = { version = "1.21", default-features = false, features = ["alloc", "race"] }
 smallvec = { workspace = true }
 
 [dependencies.rustfft]
