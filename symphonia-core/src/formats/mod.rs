@@ -8,7 +8,7 @@
 //! The `format` module provides the traits and support structures necessary to implement media
 //! demuxers.
 
-use std::fmt;
+use core::fmt;
 
 use crate::codecs::{CodecParameters, audio, subtitle, video};
 use crate::common::FourCc;

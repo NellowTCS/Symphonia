@@ -7,7 +7,7 @@
 
 //! Subtitle decoder specific support.
 
-use std::fmt;
+use core::fmt;
 
 #[cfg(feature = "exp-subtitle-codecs")]
 use crate::codecs::CodecInfo;

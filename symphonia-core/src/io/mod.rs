@@ -20,7 +20,7 @@
 //! consume bits.
 
 use std::io;
-use std::mem;
+use core::mem;
 
 mod bit;
 mod buf_reader;
@@ -74,7 +74,7 @@ impl MediaSource for std::fs::File {
     }
 }
 
-impl<T: std::convert::AsRef<[u8]> + Send + Sync> MediaSource for io::Cursor<T> {
+impl<T: core::convert::AsRef<[u8]> + Send + Sync> MediaSource for io::Cursor<T> {
     /// Always returns true since a `io::Cursor<u8>` is always seekable.
     fn is_seekable(&self) -> bool {
         true

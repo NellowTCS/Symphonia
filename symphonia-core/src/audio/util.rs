@@ -5,7 +5,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use std::ops::{Bound, Range, RangeBounds};
+use core::ops::{Bound, Range, RangeBounds};
 
 use crate::audio::conv::{FromSample, IntoSample};
 use crate::audio::sample::{Sample, SampleBytes};

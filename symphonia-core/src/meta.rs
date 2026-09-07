@@ -49,12 +49,12 @@
 //! be large, duplicating it could be wasteful. For this reason, string and binary data values are
 //! stored using an [`Arc`].
 
-use std::borrow::Cow;
-use std::collections::VecDeque;
-use std::convert::From;
-use std::fmt;
-use std::num::NonZeroU8;
-use std::sync::Arc;
+use alloc::borrow::Cow;
+use alloc::collections::VecDeque;
+use alloc::sync::Arc;
+use core::convert::From;
+use core::fmt;
+use core::num::NonZeroU8;
 
 use crate::common::{FourCc, Limit};
 use crate::errors::Result;

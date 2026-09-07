@@ -5,7 +5,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-use std::cmp::min;
+use core::cmp::min;
 use std::io;
 
 use crate::io::ReadBytes;
@@ -18,9 +18,9 @@ fn end_of_bitstream_error<T>() -> io::Result<T> {
 pub mod vlc {
     //! The `vlc` module provides support for decoding variable-length codes (VLC).
 
-    use std::collections::{BTreeMap, VecDeque};
+    use alloc::collections::{BTreeMap, VecDeque};
+    use core::num::NonZero;
     use std::io;
-    use std::num::NonZero;
 
     fn codebook_error<T>(desc: &'static str) -> io::Result<T> {
         Err(io::Error::other(desc))
@@ -894,13 +894,13 @@ impl private::FetchBitsLtr for BitReaderLtr<'_> {
     }
 
     fn fetch_bits(&mut self) -> io::Result<()> {
-        let read_len = min(self.buf.len(), std::mem::size_of::<u64>());
+        let read_len = min(self.buf.len(), core::mem::size_of::<u64>());
 
         if read_len == 0 {
             return end_of_bitstream_error();
         }
 
-        let mut buf = [0u8; std::mem::size_of::<u64>()];
+        let mut buf = [0u8; core::mem::size_of::<u64>()];
 
         buf[..read_len].copy_from_slice(&self.buf[..read_len]);
 
@@ -1334,13 +1334,13 @@ impl private::FetchBitsRtl for BitReaderRtl<'_> {
     }
 
     fn fetch_bits(&mut self) -> io::Result<()> {
-        let read_len = min(self.buf.len(), std::mem::size_of::<u64>());
+        let read_len = min(self.buf.len(), core::mem::size_of::<u64>());
 
         if read_len == 0 {
             return end_of_bitstream_error();
         }
 
-        let mut buf = [0u8; std::mem::size_of::<u64>()];
+        let mut buf = [0u8; core::mem::size_of::<u64>()];
 
         buf[..read_len].copy_from_slice(&self.buf[..read_len]);
 
@@ -1754,7 +1754,7 @@ mod tests {
         let decoded: Vec<u8> =
             (0..text.len()).map(|_| bs.read_codebook(&codebook).unwrap().0).collect();
 
-        assert_eq!(text, std::str::from_utf8(&decoded).unwrap());
+        assert_eq!(text, core::str::from_utf8(&decoded).unwrap());
     }
 
     #[test]
@@ -2071,7 +2071,7 @@ mod tests {
         let decoded: Vec<u8> =
             (0..text.len()).map(|_| bs.read_codebook(&codebook).unwrap().0).collect();
 
-        assert_eq!(text, std::str::from_utf8(&decoded).unwrap());
+        assert_eq!(text, core::str::from_utf8(&decoded).unwrap());
     }
 
     #[test]
