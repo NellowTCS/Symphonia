@@ -15,6 +15,8 @@ use alloc::string::String;
 use alloc::sync::Arc;
 
 #[cfg(not(feature = "std"))]
+use alloc::borrow::ToOwned;
+#[cfg(not(feature = "std"))]
 use hashbrown::HashMap;
 #[cfg(feature = "std")]
 use std::collections::HashMap;

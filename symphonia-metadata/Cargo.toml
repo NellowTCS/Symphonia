@@ -38,7 +38,6 @@ riff = [
 
 [dependencies]
 hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
-lazy_static = { workspace = true }
 log = { workspace = true }
 once_cell = { version = "1.21", default-features = false, features = ["alloc", "race"] }
 regex = { version = "1", default-features = false, features = ["unicode"] }

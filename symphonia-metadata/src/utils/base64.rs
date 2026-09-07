@@ -11,6 +11,7 @@
 // would be too difficult to individually waive the lint.
 #![allow(dead_code)]
 
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 
 /// Decode a RFC4648 Base64 encoded string.

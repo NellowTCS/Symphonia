@@ -7,6 +7,7 @@
 
 //! An ID3v2 metadata reader.
 
+use alloc::boxed::Box;
 use alloc::string::String;
 use alloc::vec::Vec;
 
