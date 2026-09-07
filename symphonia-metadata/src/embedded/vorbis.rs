@@ -7,8 +7,16 @@
 
 //! Vorbis Comment reading.
 
-use std::collections::{BTreeMap, HashMap};
-use std::sync::Arc;
+use alloc::collections::BTreeMap;
+use alloc::string::String;
+use alloc::sync::Arc;
+
+#[cfg(not(feature = "std"))]
+use alloc::string::ToString;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
+use std::collections::HashMap;
 
 use lazy_static::lazy_static;
 use log::warn;

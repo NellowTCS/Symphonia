@@ -7,14 +7,21 @@
 
 //! Frame body readers.
 
-use std::char;
+use alloc::string::String;
+use alloc::sync::Arc;
+use alloc::vec::Vec;
+use core::char;
+use core::str;
+
+#[cfg(not(feature = "std"))]
+use alloc::string::ToString;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
 use std::collections::HashMap;
-use std::io;
-use std::str;
-use std::sync::Arc;
 
 use symphonia_core::errors::{Result, decode_error, unsupported_error};
-use symphonia_core::io::{BufReader, FiniteStream, ReadBytes};
+use symphonia_core::io::{BufReader, FiniteStream, MediaResult, ReadBytes};
 use symphonia_core::meta::RawTag;
 use symphonia_core::meta::RawTagSubField;
 use symphonia_core::meta::{Chapter, RawValue, StandardTag, Tag, Visual};
@@ -55,7 +62,7 @@ impl<'a> FrameInfo<'a> {
     /// Panics if the frame ID is invalid.
     pub fn new(id: &'a [u8], major_version: u8, raw_tag_parser: Option<RawTagParser>) -> Self {
         FrameInfo {
-            id: std::str::from_utf8(id).expect("validated frame id bytes"),
+            id: core::str::from_utf8(id).expect("validated frame id bytes"),
             major_version,
             raw_tag_parser,
         }
@@ -175,7 +182,7 @@ fn read_lang_code(reader: &mut BufReader<'_>) -> Result<Option<String>> {
     else {
         // Convert to lowercase string.
         Some(
-            std::str::from_utf8(&code)
+            core::str::from_utf8(&code)
                 .expect("lang code contains only ASCII alphabetic chars")
                 .to_ascii_lowercase(),
         )
@@ -216,7 +223,7 @@ fn read_play_counter(reader: &mut BufReader<'_>) -> Result<Option<u64>> {
 /// Read a null-terminated string of the specified encoding from the stream. If the stream ends
 /// before the null-terminator is reached, all the bytes up-to that point are interpreted as the
 /// string.
-fn read_string(reader: &mut BufReader<'_>, encoding: Encoding) -> io::Result<String> {
+fn read_string(reader: &mut BufReader<'_>, encoding: Encoding) -> MediaResult<String> {
     let max_len = reader.bytes_available() as usize;
 
     let buf = match encoding {
@@ -247,7 +254,7 @@ fn read_string(reader: &mut BufReader<'_>, encoding: Encoding) -> io::Result<Str
 fn read_string_ignore_empty(
     reader: &mut BufReader<'_>,
     encoding: Encoding,
-) -> io::Result<Option<String>> {
+) -> MediaResult<Option<String>> {
     Ok(Some(read_string(reader, encoding)?).filter(|text| !text.is_empty()))
 }
 

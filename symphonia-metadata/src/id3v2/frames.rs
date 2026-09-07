@@ -7,8 +7,16 @@
 
 //! ID3v2 frame readers.
 
+use alloc::string::String;
+use alloc::vec::Vec;
+use core::str;
+
+#[cfg(not(feature = "std"))]
+use alloc::borrow::ToOwned;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
 use std::collections::HashMap;
-use std::str;
 
 use symphonia_core::errors::{Result, decode_error};
 use symphonia_core::io::{BufReader, FiniteStream, ReadBytes};
@@ -424,7 +432,7 @@ fn validate_frame_id(id: &[u8]) -> bool {
 ///
 /// Assumes the bytes are valid ASCII characters. Panics otherwise.
 fn from_ascii(id: &[u8]) -> &str {
-    std::str::from_utf8(id).expect("ascii only")
+    core::str::from_utf8(id).expect("ascii only")
 }
 
 /// Get the default frame reader for unknown frames.

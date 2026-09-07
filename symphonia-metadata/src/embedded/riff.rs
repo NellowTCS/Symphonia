@@ -11,8 +11,13 @@
 mod info {
     //! RIFF INFO chunk metadata format reading.
 
+    use alloc::string::String;
+    use core::str;
+
+    #[cfg(not(feature = "std"))]
+    use hashbrown::HashMap;
+    #[cfg(feature = "std")]
     use std::collections::HashMap;
-    use std::str;
 
     use lazy_static::lazy_static;
 

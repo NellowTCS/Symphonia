@@ -7,16 +7,27 @@
 
 //! An APEv1 and APEv2 metadata reader.
 
+use alloc::string::String;
+use alloc::sync::Arc;
 use core::str;
+
+#[cfg(not(feature = "std"))]
+use alloc::string::ToString;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
 use std::collections::HashMap;
-use std::io::{Seek, SeekFrom};
-use std::sync::Arc;
 
 use symphonia_core::errors::{Result, decode_error, unsupported_error};
 use symphonia_core::formats::probe::{
     Anchors, ProbeMetadataData, ProbeableMetadata, Score, Scoreable,
 };
 use symphonia_core::io::{MediaSourceStream, ReadBytes, ScopedStream, SeekBuffered};
+
+#[cfg(feature = "std")]
+use std::io::{Seek, SeekFrom};
+#[cfg(not(feature = "std"))]
+use symphonia_core::io::{MediaSource, SeekFrom};
 use symphonia_core::meta::well_known::{METADATA_ID_APEV1, METADATA_ID_APEV2};
 use symphonia_core::meta::{
     MetadataBuffer, MetadataBuilder, MetadataInfo, MetadataOptions, MetadataReader, RawTag,

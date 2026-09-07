@@ -10,6 +10,11 @@
 use symphonia_core::errors::Result;
 use symphonia_core::meta::{MetadataBuilder, RawTag, RawValue};
 
+use alloc::string::String;
+
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
 use std::collections::HashMap;
 
 use lazy_static::lazy_static;

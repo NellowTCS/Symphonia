@@ -7,7 +7,8 @@
 
 //! An ID3v1 metadata reader.
 
-use std::sync::Arc;
+use alloc::string::String;
+use alloc::sync::Arc;
 
 use symphonia_core::errors::{Result, unsupported_error};
 use symphonia_core::formats::probe::{

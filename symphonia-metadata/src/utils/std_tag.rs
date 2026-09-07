@@ -11,7 +11,13 @@
 // would be too difficult to individually waive the lint.
 #![allow(dead_code)]
 
-use std::{collections::HashMap, sync::Arc};
+use alloc::string::String;
+use alloc::sync::Arc;
+
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
+use std::collections::HashMap;
 
 use symphonia_core::meta::{ContentAdvisory, MetadataBuilder, RawTag, RawValue, StandardTag, Tag};
 
