@@ -32,7 +32,10 @@
 #![allow(clippy::identity_op)]
 #![allow(clippy::manual_range_contains)]
 
-#[cfg_attr(any(feature = "ape", feature = "id3v2", feature = "flac", feature = "vorbis"), macro_use)]
+#[cfg_attr(
+    any(feature = "ape", feature = "id3v2", feature = "flac", feature = "vorbis"),
+    macro_use
+)]
 extern crate alloc;
 
 #[cfg(feature = "ape")]
