@@ -14,14 +14,24 @@ rust-version.workspace = true
 version.workspace = true
 
 [features]
-default = ["aiff", "wav"]
+default = ["std", "aiff", "wav"]
+
+# Enable standard-library I/O support. Disable for `no_std` (default-features = false).
+std = ["symphonia-core/std", "symphonia-metadata/std"]
+
 aiff = ["symphonia-metadata/riff-id3"]
 wav = ["symphonia-metadata/riff-info"]
 
 [dependencies]
-extended = "0.1.0"
+# TODO: Update to version 0.1.1 once this is published
+extended = { version = "0.1.0", git = "https://github.com/depp/extended-rs/", rev = "b7e205ca" }
+hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
 log = { workspace = true }
-symphonia-core = { version = "0.6.1", path = "../symphonia-core" }
+
+[dependencies.symphonia-core]
+version = "0.6.1"
+path = "../symphonia-core"
+default-features = false
 
 [dependencies.symphonia-metadata]
 version = "0.6.1"

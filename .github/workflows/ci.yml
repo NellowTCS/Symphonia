@@ -34,6 +34,20 @@ jobs:
       - name: Check fuzzers
         run: cargo check --manifest-path symphonia/fuzz/Cargo.toml --verbose
 
+  no-std:
+    name: no_std
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Toolchain
+        run: rustup install stable --profile minimal && rustup target add thumbv7m-none-eabi
+
+      - name: Check no_std
+        run: cargo check -p symphonia --target thumbv7m-none-eabi --no-default-features --features all
+
   clippy:
     name: Clippy ${{ matrix.os }}
 

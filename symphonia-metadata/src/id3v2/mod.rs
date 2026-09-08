@@ -7,6 +7,15 @@
 
 //! An ID3v2 metadata reader.
 
+use alloc::boxed::Box;
+use alloc::string::String;
+use alloc::vec::Vec;
+
+#[cfg(not(feature = "std"))]
+use alloc::string::ToString;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
 use std::collections::HashMap;
 
 use symphonia_core::errors::{Result, decode_error, unsupported_error};
