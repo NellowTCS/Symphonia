@@ -141,9 +141,11 @@ fn init_ape_tag_map() -> Box<RawTagParserMap> {
     Box::new(m)
 }
 
-static APE_VISUAL_TAG_MAP: OnceBox<HashMap<&'static str, StandardVisualKey>> = OnceBox::new();
+type ApeVisualTagMap = HashMap<&'static str, StandardVisualKey>;
 
-fn init_ape_visual_tag_map() -> Box<HashMap<&'static str, StandardVisualKey>> {
+static APE_VISUAL_TAG_MAP: OnceBox<ApeVisualTagMap> = OnceBox::new();
+
+fn init_ape_visual_tag_map() -> Box<ApeVisualTagMap> {
     let mut m = HashMap::new();
     m.insert("cover art (other)", StandardVisualKey::Other);
     m.insert("cover art (png icon)", StandardVisualKey::FileIcon);

@@ -227,9 +227,11 @@ pub fn min_frame_size(major_version: u8) -> u64 {
     }
 }
 
-static LEGACY_FRAME_MAP: OnceBox<HashMap<&'static [u8; 3], &'static [u8; 4]>> = OnceBox::new();
+type LegacyFrameMap = HashMap<&'static [u8; 3], &'static [u8; 4]>;
 
-fn init_legacy_frame_map() -> Box<HashMap<&'static [u8; 3], &'static [u8; 4]>> {
+static LEGACY_FRAME_MAP: OnceBox<LegacyFrameMap> = OnceBox::new();
+
+fn init_legacy_frame_map() -> Box<LegacyFrameMap> {
     let mut m = HashMap::new();
     m.insert(b"BUF", b"RBUF");
     m.insert(b"CNT", b"PCNT");
