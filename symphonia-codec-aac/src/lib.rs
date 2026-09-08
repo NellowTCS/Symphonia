@@ -15,6 +15,10 @@
 #![allow(clippy::manual_range_contains)]
 // TODO: Remove this when refactoring AAC.
 #![allow(clippy::needless_range_loop)]
+#![cfg_attr(not(feature = "std"), no_std)]
+
+#[macro_use]
+extern crate alloc;
 
 mod aac;
 mod adts;
