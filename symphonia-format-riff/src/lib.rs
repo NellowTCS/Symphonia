@@ -15,7 +15,7 @@
 #![allow(clippy::manual_range_contains)]
 #![cfg_attr(not(feature = "std"), no_std)]
 
-#[macro_use]
+#[cfg_attr(any(feature = "aiff", feature = "wav"), macro_use)]
 extern crate alloc;
 
 mod common;
