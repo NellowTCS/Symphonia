@@ -17,11 +17,6 @@ version.workspace = true
 default = ["std"]
 
 # Enable standard-library I/O support. Disable for `no_std` (default-features = false).
-#
-# Under `std`, float and complex math is routed through the standard library. The crate-level
-# `libm` feature is intentionally left enabled on the `num-traits`/`num-complex` dependencies:
-# when both `std` and `libm` are active, `num-traits` selects its `std` implementations, so the
-# software `libm` fallbacks are only used in `no_std` builds.
 std = ["num-traits/std", "num-complex/std"]
 
 # SIMD support.
