@@ -17,7 +17,10 @@ version.workspace = true
 default = ["std"]
 
 # Enable standard-library I/O support. Disable for `no_std` (default-features = false).
-std = ["symphonia-core/std", "symphonia-common/std"]
+#
+# Forward `num-traits/std` so float math uses the standard library (not the software `libm`
+# fallbacks) in `std` builds; same rationale as `symphonia-core`.
+std = ["symphonia-core/std", "symphonia-common/std", "num-traits/std"]
 
 [dependencies]
 hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
