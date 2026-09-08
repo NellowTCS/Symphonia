@@ -17,7 +17,7 @@ version.workspace = true
 default = ["mp1", "mp2", "mp3", "std"]
 
 # Enable standard-library I/O support. Disable for `no_std` (default-features = false).
-std = ["symphonia-core/std"]
+std = ["symphonia-core/std", "num-traits/std"]
 
 mp1 = []
 mp2 = []
