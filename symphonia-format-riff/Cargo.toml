@@ -23,7 +23,8 @@ aiff = ["symphonia-metadata/riff-id3"]
 wav = ["symphonia-metadata/riff-info"]
 
 [dependencies]
-extended = { version = "0.1.0", git = "https://github.com/NellowTCS/extended-rs/", rev = "b7e205ca" }
+# TODO: Update to version 0.1.1 once this is published
+extended = { version = "0.1.0", git = "https://github.com/depp/extended-rs/", rev = "b7e205ca" }
 hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
 log = { workspace = true }
 
