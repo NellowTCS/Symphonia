@@ -24,7 +24,6 @@ wav = ["symphonia-metadata/riff-info"]
 
 [dependencies]
 extended = "0.2.0"
-hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
 log = { workspace = true }
 
 [dependencies.symphonia-core]

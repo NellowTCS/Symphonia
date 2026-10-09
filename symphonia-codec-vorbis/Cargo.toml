@@ -21,8 +21,7 @@ std = ["symphonia-core/std", "symphonia-common/std", "num-traits/std"]
 
 [dependencies]
 log = { workspace = true }
-hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
-num-traits = { version = "0.2.19", default-features = false, features = ["libm"] }
+num-traits = { version = "0.2.19", default-features = false }
 
 [dependencies.symphonia-core]
 version = "0.6.1"

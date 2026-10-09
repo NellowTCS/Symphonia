@@ -15,10 +15,10 @@ use alloc::string::String;
 
 use once_cell::race::OnceBox;
 
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
 #[cfg(feature = "std")]
 use std::collections::HashMap;
+#[cfg(not(feature = "std"))]
+use symphonia_core::collections::HashMap;
 
 use crate::utils::std_tag::*;
 

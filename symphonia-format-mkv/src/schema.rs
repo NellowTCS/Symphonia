@@ -12,9 +12,9 @@ use alloc::boxed::Box;
 
 use crate::ebml::{EbmlDataType, EbmlElementInfo, EbmlSchema};
 
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
 use once_cell::race::OnceBox;
+#[cfg(not(feature = "std"))]
+use symphonia_core::collections::HashMap;
 
 /// MKV element type enumeration.
 #[derive(Copy, Clone, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]

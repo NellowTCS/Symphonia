@@ -9,10 +9,10 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::cmp::min;
 
-#[cfg(not(feature = "std"))]
-use hashbrown::HashSet;
 #[cfg(feature = "std")]
 use std::collections::HashSet;
+#[cfg(not(feature = "std"))]
+use symphonia_core::collections::HashSet;
 
 #[cfg(not(feature = "std"))]
 use num_traits::float::Float;

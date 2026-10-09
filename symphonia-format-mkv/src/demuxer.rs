@@ -13,7 +13,7 @@ use core::convert::TryFrom;
 use core::num::NonZero;
 
 #[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
+use symphonia_core::collections::HashMap;
 
 #[cfg(not(feature = "std"))]
 use num_traits::float::Float;

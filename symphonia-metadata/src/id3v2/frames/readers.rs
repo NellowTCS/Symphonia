@@ -18,10 +18,10 @@ use once_cell::race::OnceBox;
 
 #[cfg(not(feature = "std"))]
 use alloc::string::ToString;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
 #[cfg(feature = "std")]
 use std::collections::HashMap;
+#[cfg(not(feature = "std"))]
+use symphonia_core::collections::HashMap;
 
 use symphonia_core::errors::{Result, decode_error, unsupported_error};
 use symphonia_core::io::{BufReader, FiniteStream, MediaResult, ReadBytes};

@@ -16,10 +16,10 @@ use once_cell::race::OnceBox;
 
 #[cfg(not(feature = "std"))]
 use alloc::borrow::ToOwned;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
 #[cfg(feature = "std")]
 use std::collections::HashMap;
+#[cfg(not(feature = "std"))]
+use symphonia_core::collections::HashMap;
 
 use symphonia_core::errors::{Result, decode_error};
 use symphonia_core::io::{BufReader, FiniteStream, ReadBytes};

@@ -13,7 +13,7 @@ use alloc::{boxed::Box, string::String, vec::Vec};
 use core::num::NonZeroU64;
 
 #[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
+use symphonia_core::collections::HashMap;
 
 #[cfg(not(feature = "std"))]
 use num_traits::float::Float;

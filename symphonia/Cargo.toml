@@ -36,6 +36,9 @@ std = [
     "symphonia-format-caf/std",
 ]
 
+# Enable no_std support with `default-features = false`.
+no_std = ["symphonia-core/no_std"]
+
 # Only royalty-free open standard codecs and formats are enabled by default.
 default = ["std", "opt-simd", "all-meta", "adpcm", "flac", "mkv", "ogg", "pcm", "vorbis", "wav"]
 

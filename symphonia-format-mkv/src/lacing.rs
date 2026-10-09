@@ -11,7 +11,7 @@ use std::collections::HashMap;
 use alloc::{boxed::Box, collections::VecDeque, vec::Vec};
 
 #[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
+use symphonia_core::collections::HashMap;
 
 use symphonia_core::errors::{Error, Result, decode_error};
 use symphonia_core::io::{BufReader, ReadBytes};

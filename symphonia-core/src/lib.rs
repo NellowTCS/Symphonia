@@ -17,6 +17,16 @@
 #[macro_use]
 extern crate alloc;
 
+#[cfg(not(any(feature = "std", feature = "no_std")))]
+compile_error!("symphonia-core: enable either the `std` feature (default) or the `no_std` feature");
+
+/// Collection types used by the no_std build.
+#[cfg(not(feature = "std"))]
+#[doc(hidden)]
+pub mod collections {
+    pub use hashbrown::{HashMap, HashSet};
+}
+
 pub mod audio;
 pub mod checksum;
 pub mod codecs;

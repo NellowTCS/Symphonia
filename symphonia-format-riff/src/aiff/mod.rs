@@ -17,7 +17,7 @@ use alloc::{boxed::Box, vec::Vec};
 #[cfg(not(feature = "std"))]
 use alloc::sync::Arc;
 #[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
+use symphonia_core::collections::HashMap;
 #[cfg(not(feature = "std"))]
 use symphonia_core::io::SeekFrom;
 

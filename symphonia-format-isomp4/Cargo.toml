@@ -20,7 +20,6 @@ default = ["std"]
 std = ["symphonia-core/std", "symphonia-common/std", "symphonia-metadata/std"]
 
 [dependencies]
-hashbrown = { version = "0.17", default-features = false, features = ["alloc", "default-hasher"] }
 log = { workspace = true }
 
 [dependencies.symphonia-common]

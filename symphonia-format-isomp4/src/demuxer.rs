@@ -21,12 +21,12 @@ use symphonia_core::units::Time;
 use alloc::{boxed::Box, sync::Arc, vec::Vec};
 
 use core::num::NonZero;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
 #[cfg(feature = "std")]
 use std::collections::HashMap;
 #[cfg(feature = "std")]
 use std::io::{Seek, SeekFrom};
+#[cfg(not(feature = "std"))]
+use symphonia_core::collections::HashMap;
 #[cfg(not(feature = "std"))]
 use symphonia_core::io::SeekFrom;
 
